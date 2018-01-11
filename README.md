@@ -9,8 +9,8 @@ from heimdall import BaseContract, StringAttribute, ArrayAttribute
 
 
 class UserContract(BaseContract):
-  name = StringAttribute(required=True)
-  hobbies = ArrayAttribute(StringAttribute, required=True)
+    name = StringAttribute(required=True)
+    hobbies = ArrayAttribute(StringAttribute, required=True)
 
 
 data = {"name": "Guido", "hobbies": ["programming", "reading"]}
