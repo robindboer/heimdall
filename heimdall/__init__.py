@@ -1,6 +1,8 @@
 from heimdall.contract import BaseContract
 from heimdall.attribute import (
-    StringAttribute, ArrayAttribute
+    StringAttribute,
+    ArrayAttribute,
+    ObjectAttribute,
+    IntAttribute,
+    BoolAttribute
 )
-
-# noqa

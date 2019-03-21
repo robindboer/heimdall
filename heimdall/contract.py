@@ -1,9 +1,8 @@
 from heimdall.attribute import BaseAttribute
+from heimdall.exceptions import ValidationException
 
 
 class BaseContract(object):
-    def __init__(self):
-        self._validators = []
 
     @property
     def _attributes(self):
@@ -18,12 +17,17 @@ class BaseContract(object):
         return attributes
 
     def validate(self, data):
+        errors = {}
         for key, value in data.items():
-            attribute = getattr(self, key, None)
-            if not attribute:
-                raise Exception("Value '%s' is Unknown" % key)
-            attribute.validate(value)
+            attribute = getattr(self, key)
+            try:
+                attribute.validate(value)
+            except ValidationException as e:
+                errors[key] = e.message
 
         for name, attribute in self._attributes.items():
             if name not in data and attribute.required is True:
-                raise Exception('Missing Property')
+                errors[name] = "Data is missing Property '%s'" % name
+        
+        if errors:
+            raise 
